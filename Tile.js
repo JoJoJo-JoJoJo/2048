@@ -42,13 +42,13 @@ export default class Tile {
   }
 
   waitForTransition(animation = false) {
-    return new Promise((res) => {
+    return new Promise((resolve) => {
       this.#tileElement.addEventListener(
         animation ? "animationend" : "transitionend",
-        res,
+        resolve,
         { once: true }
       );
-    }); // I used 'res' to mean resolve, there wouldn't have been a reject in this case
+    });
   }
 }
 

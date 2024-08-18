@@ -27,11 +27,14 @@ function setupInput() {
 }
 
 function resetGame() {
+  if (grid) return;
   grid.randomEmptyCell().tile = new Tile(gameBoard);
   grid.randomEmptyCell().tile = new Tile(gameBoard);
   setupInput();
   //! Need to check the gameBoard for all Tiles currently on it, and then remove them all.
 }
+
+//! 'resetGame' function needs to return instantly if the game is in it's original state i.e. only 2 tiles on the board of values 2 or 4.
 
 async function handleInput(e) {
   switch (e.key) {
@@ -72,7 +75,8 @@ async function handleInput(e) {
     cell.mergeTiles();
     if (cell.isTileValue2048()) {
       newTile.waitForTransition(true).then(() => {
-        alert("You Win!");
+        alert("You win!");
+        showEndScreen();
       });
     }
   });
@@ -83,11 +87,16 @@ async function handleInput(e) {
   if (!canMoveUp() && !canMoveDown() && !canMoveLeft() && !canMoveRight()) {
     newTile.waitForTransition(true).then(() => {
       alert("You lose :(");
+      showEndScreen();
     });
     return;
   }
 
   setupInput();
+}
+
+function showEndScreen() {
+  console.log("This function will eventually reveal an end screen");
 }
 
 function moveUp() {

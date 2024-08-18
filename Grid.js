@@ -113,7 +113,6 @@ class Cell {
   } // Merges the two tiles, doubles the value of 'this.tile', and removes 'this.mergeTile'
 
   isTileValue2048() {
-    //TODO: Check for the current highest tile value on the gameboard.
     if (this.tile != null && this.mergeTile != null) return this.tile.value === 2048 ? true : false
   }
 }
@@ -128,5 +127,3 @@ function createCellElements(gridElement) {
   }
   return cells;
 }
-
-//* This function simply creates a number of 'cell' (div) elements equal to the gridSize squared, and appends them to both the gameBoard visually, and to the cells array.
