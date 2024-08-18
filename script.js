@@ -8,8 +8,6 @@ import Tile from "./Tile.js";
 const resetBtn = document.querySelector("[data-reset]");
 const gameBoard = document.getElementById("game-board");
 
-let winCondition = false;
-
 const grid = new Grid(gameBoard);
 grid.randomEmptyCell().tile = new Tile(gameBoard);
 grid.randomEmptyCell().tile = new Tile(gameBoard);
@@ -29,7 +27,6 @@ function setupInput() {
 }
 
 function resetGame() {
-  winCondition = false;
   grid.randomEmptyCell().tile = new Tile(gameBoard);
   grid.randomEmptyCell().tile = new Tile(gameBoard);
   setupInput();
@@ -73,19 +70,15 @@ async function handleInput(e) {
 
   grid.cells.forEach((cell) => {
     cell.mergeTiles();
-    if (cell.highestTileValue()) {
-      winCondition = true;
+    if (cell.isTileValue2048()) {
+      newTile.waitForTransition(true).then(() => {
+        alert("You Win!");
+      });
     }
   });
 
   const newTile = new Tile(gameBoard);
   grid.randomEmptyCell().tile = newTile;
-
-  if (winCondition) {
-    newTile.waitForTransition(true).then(() => {
-      alert("You Win!");
-    });
-  }
 
   if (!canMoveUp() && !canMoveDown() && !canMoveLeft() && !canMoveRight()) {
     newTile.waitForTransition(true).then(() => {
