@@ -23,6 +23,8 @@ export default class Grid {
     return this.#cells;
   }
 
+  // All this is saying is that you can now read the content of the cells variable (private) from outside of the class.
+
   get cellsByRow() {
     return this.#cells.reduce((cellGrid, cell) => {
       cellGrid[cell.y] = cellGrid[cell.y] || [];
@@ -43,11 +45,15 @@ export default class Grid {
     return this.#cells.filter((cell) => cell.tile == null);
   }
 
+  // PRIVATE read-only function that returns all cells that don't currently contain a value on the gameBoard i.e. spaces without a tile on them.
+
   randomEmptyCell() {
     const randomIndex = Math.floor(Math.random() * this.#emptyCells.length);
     return this.#emptyCells[randomIndex];
   }
 }
+
+//* This class defines the actual grid for the game itself, and how to position the cells within the grid.
 
 class Cell {
   #cellElement;
@@ -122,3 +128,5 @@ function createCellElements(gridElement) {
   }
   return cells;
 }
+
+//* This function simply creates a number of 'cell' (div) elements equal to the gridSize squared, and appends them to both the gameBoard visually, and to the cells array.
