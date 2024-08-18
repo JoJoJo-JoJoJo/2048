@@ -5,16 +5,16 @@ import Tile from "Tile.js";
 //? --> Adding a navbar, allowing users to reset their game or return to the home screen
 //? --> Add a scoring system, with a leader board for personal bests.
 
-const resetBtn = document.querySelector("[data-reset]");
+// const resetBtn = document.querySelector("[data-reset]");
 const gameBoard = document.getElementById("game-board");
 
-let winCondition = false;
+// let winCondition = false;
 
 const grid = new Grid(gameBoard);
 
 setupInput();
 
-resetBtn.addEventListener("click", resetGame());
+// resetBtn.addEventListener("click", resetGame());
 
 function setupInput() {
   window.addEventListener("keydown", handleInput, { once: true });
@@ -57,19 +57,19 @@ async function handleInput(e) {
 
   grid.cells.forEach((cell) => {
     cell.mergeTiles();
-    if (cell.highestTileValue()) {
-      winCondition = true;
-    }
+    // if (cell.highestTileValue()) {
+    //   winCondition = true;
+    // }
   });
 
   const newTile = new Tile(gameBoard);
   grid.randomEmptyCell().tile = newTile;
 
-  if (winCondition) {
-    newTile.waitForTransition(true).then(() => {
-      alert("You Win!");
-    });
-  }
+  // if (winCondition) {
+  //   newTile.waitForTransition(true).then(() => {
+  //     alert("You Win!");
+  //   });
+  // }
 
   if (!canMoveUp() && !canMoveDown() && !canMoveLeft() && !canMoveRight()) {
     newTile.waitForTransition(true).then(() => {
@@ -153,9 +153,9 @@ function canMove(cells) {
   });
 }
 
-function resetGame() {
-  winCondition = false;
-  grid.randomEmptyCell().tile = new Tile(gameBoard);
-  grid.randomEmptyCell().tile = new Tile(gameBoard);
-  setupInput();
-}
+// function resetGame() {
+//   winCondition = false;
+//   grid.randomEmptyCell().tile = new Tile(gameBoard);
+//   grid.randomEmptyCell().tile = new Tile(gameBoard);
+//   setupInput();
+// }
