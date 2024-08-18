@@ -1,5 +1,5 @@
-import Grid from "Grid.js";
-import Tile from "Tile.js";
+import Grid from "./Grid.js";
+import Tile from "./Tile.js";
 
 //TODO: Make this into a portfolio piece by:
 //? --> Adding a navbar, allowing users to reset their game or return to the home screen
@@ -11,13 +11,29 @@ const gameBoard = document.getElementById("game-board");
 let winCondition = false;
 
 const grid = new Grid(gameBoard);
+grid.randomEmptyCell().tile = new Tile(gameBoard);
+grid.randomEmptyCell().tile = new Tile(gameBoard);
 
 setupInput();
 
-resetBtn.addEventListener("click", resetGame());
+resetBtn.addEventListener("click", (e) => {
+  e.stopImmediatePropagation;
+  resetGame();
+});
+
+/* I stopped immediate event propagation here because the handleInput function is run on an
+event listener attached to the window, otherwise the reset button would run twice on start. */
 
 function setupInput() {
   window.addEventListener("keydown", handleInput, { once: true });
+}
+
+function resetGame() {
+  winCondition = false;
+  grid.randomEmptyCell().tile = new Tile(gameBoard);
+  grid.randomEmptyCell().tile = new Tile(gameBoard);
+  setupInput();
+  //! Need to check the gameBoard for all Tiles currently on it, and then remove them all.
 }
 
 async function handleInput(e) {
@@ -151,11 +167,4 @@ function canMove(cells) {
       return moveToCell.canAccept(cell.tile);
     });
   });
-}
-
-function resetGame() {
-  winCondition = false;
-  grid.randomEmptyCell().tile = new Tile(gameBoard);
-  grid.randomEmptyCell().tile = new Tile(gameBoard);
-  setupInput();
 }
