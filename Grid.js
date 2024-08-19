@@ -45,6 +45,10 @@ export default class Grid {
     return this.#cells.filter((cell) => cell.tile == null);
   }
 
+  get #occupiedCells() {
+    return this.#cells.filter((cell) => cell.tile != null);
+  }
+
   // PRIVATE read-only function that returns all cells that don't currently contain a value on the gameBoard i.e. spaces without a tile on them.
 
   randomEmptyCell() {
@@ -53,8 +57,7 @@ export default class Grid {
   }
 
   clearAllCells() {
-    this.#cells.forEach((cell) => cell.tile == null);
-    //! Need to properly figure this one out still.
+    console.log(this.#occupiedCells)
   }
 }
 
