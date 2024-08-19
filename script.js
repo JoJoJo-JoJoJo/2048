@@ -1,9 +1,9 @@
 import Grid from "./Grid.js";
 import Tile from "./Tile.js";
 
-//TODO: Make this into a portfolio piece by:
-//? --> Adding a navbar, allowing users to reset their game or return to the home screen
-//? --> Add a scoring system, with a leader board for personal bests.
+//TODO: Add a home screen, which will eventually contain a home screen.
+//TODO: Add a few different options for themes (i.e. tile colours) on the home screen.
+//TODO: Add a scoring system, with a leader board for personal bests.
 
 const resetBtn = document.querySelector("[data-reset]");
 const gameBoard = document.getElementById("game-board");
@@ -27,14 +27,11 @@ function setupInput() {
 }
 
 function resetGame() {
-  if (grid) return;
+  grid.clearAllCells();
   grid.randomEmptyCell().tile = new Tile(gameBoard);
   grid.randomEmptyCell().tile = new Tile(gameBoard);
   setupInput();
-  //! Need to check the gameBoard for all Tiles currently on it, and then remove them all.
 }
-
-//! 'resetGame' function needs to return instantly if the game is in it's original state i.e. only 2 tiles on the board of values 2 or 4.
 
 async function handleInput(e) {
   switch (e.key) {
@@ -76,7 +73,7 @@ async function handleInput(e) {
     if (cell.isTileValue2048()) {
       newTile.waitForTransition(true).then(() => {
         alert("You win!");
-        showEndScreen();
+        console.log("Will create a new 'HomeScreen' class eventually");
       });
     }
   });
@@ -87,16 +84,12 @@ async function handleInput(e) {
   if (!canMoveUp() && !canMoveDown() && !canMoveLeft() && !canMoveRight()) {
     newTile.waitForTransition(true).then(() => {
       alert("You lose :(");
-      showEndScreen();
+      console.log("Will create a new 'HomeScreen' class eventually");
     });
     return;
   }
 
   setupInput();
-}
-
-function showEndScreen() {
-  console.log("This function will eventually reveal an end screen");
 }
 
 function moveUp() {

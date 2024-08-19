@@ -51,9 +51,12 @@ export default class Grid {
     const randomIndex = Math.floor(Math.random() * this.#emptyCells.length);
     return this.#emptyCells[randomIndex];
   }
-}
 
-//* This class defines the actual grid for the game itself, and how to position the cells within the grid.
+  clearAllCells() {
+    this.#cells.forEach((cell) => cell.tile == null);
+    //! Need to properly figure this one out still.
+  }
+}
 
 class Cell {
   #cellElement;
@@ -113,7 +116,8 @@ class Cell {
   } // Merges the two tiles, doubles the value of 'this.tile', and removes 'this.mergeTile'
 
   isTileValue2048() {
-    if (this.tile != null && this.mergeTile != null) return this.tile.value === 2048 ? true : false
+    if (this.tile != null && this.mergeTile != null)
+      return this.tile.value === 2048;
   }
 }
 
