@@ -1,7 +1,7 @@
 import Grid from "./Grid.js";
 import Tile from "./Tile.js";
 
-//TODO: Add a home screen, which will eventually contain a home screen.
+//TODO: Add a home screen, which will eventually contain a 'homeScreen' class.
 //TODO: Add a few different options for themes (i.e. tile colours) on the home screen.
 //TODO: Add a scoring system, with a leader board for personal bests.
 
