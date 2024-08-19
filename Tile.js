@@ -37,23 +37,24 @@ export default class Tile {
     this.#tileElement.style.setProperty("--y", value);
   }
 
+  get tileElement() {
+    return this.#tileElement
+  }
+
   remove() {
     this.#tileElement.remove();
   }
 
   waitForTransition(animation = false) {
-    return new Promise((res) => {
+    return new Promise((resolve) => {
       this.#tileElement.addEventListener(
         animation ? "animationend" : "transitionend",
-        res,
+        resolve,
         { once: true }
       );
-    }); // I used 'res' to mean resolve, there wouldn't have been a reject in this case
+    });
   }
 }
-
-//* When the constructor is first called upon a new Tile being created, the 'set' functions
-//* within the class define their values with the values provided from the constructor.
 
 //* 'set' is write-only.
 //* 'get' is read-only.

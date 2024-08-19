@@ -23,6 +23,8 @@ export default class Grid {
     return this.#cells;
   }
 
+  // All this is saying is that you can now read the content of the cells variable (private) from outside of the class.
+
   get cellsByRow() {
     return this.#cells.reduce((cellGrid, cell) => {
       cellGrid[cell.y] = cellGrid[cell.y] || [];
@@ -43,9 +45,23 @@ export default class Grid {
     return this.#cells.filter((cell) => cell.tile == null);
   }
 
+  get #occupiedCells() {
+    return this.#cells.filter((cell) => cell.tile != null);
+  }
+
+  // PRIVATE read-only function that returns all cells that don't currently contain a value on the gameBoard i.e. spaces without a tile on them.
+
   randomEmptyCell() {
     const randomIndex = Math.floor(Math.random() * this.#emptyCells.length);
     return this.#emptyCells[randomIndex];
+  }
+
+  clearAllCells() {
+    this.#occupiedCells.forEach((cell) => {
+      cell.tile.value = null;
+      cell.tile.remove();
+      cell.tile = null;
+    });
   }
 }
 
@@ -106,9 +122,9 @@ class Cell {
     this.mergeTile = null;
   } // Merges the two tiles, doubles the value of 'this.tile', and removes 'this.mergeTile'
 
-  highestTileValue() {
-    //TODO: Check for the current highest tile value on the gameboard.
-    if (this.tile != null && this.mergeTile != null) return this.tile.value === 2048 ? true : false
+  isTileValue2048() {
+    if (this.tile != null && this.mergeTile != null)
+      return this.tile.value === 2048;
   }
 }
 

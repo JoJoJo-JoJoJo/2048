@@ -1,23 +1,36 @@
-import Grid from "Grid.js";
-import Tile from "Tile.js";
+import Grid from "./Grid.js";
+import Tile from "./Tile.js";
 
-//TODO: Make this into a portfolio piece by:
-//? --> Adding a navbar, allowing users to reset their game or return to the home screen
-//? --> Add a scoring system, with a leader board for personal bests.
+//TODO: Add a home screen, which will eventually contain a home screen.
+//TODO: Add a few different options for themes (i.e. tile colours) on the home screen.
+//TODO: Add a scoring system, with a leader board for personal bests.
 
-// const resetBtn = document.querySelector("[data-reset]");
+const resetBtn = document.querySelector("[data-reset]");
 const gameBoard = document.getElementById("game-board");
 
-// let winCondition = false;
-
 const grid = new Grid(gameBoard);
+grid.randomEmptyCell().tile = new Tile(gameBoard);
+grid.randomEmptyCell().tile = new Tile(gameBoard);
 
 setupInput();
 
-// resetBtn.addEventListener("click", resetGame());
+resetBtn.addEventListener("click", (e) => {
+  e.stopImmediatePropagation;
+  resetGame();
+});
+
+/* I stopped immediate event propagation here because the handleInput function is run on an
+event listener attached to the window, otherwise the reset button would run twice on start. */
 
 function setupInput() {
   window.addEventListener("keydown", handleInput, { once: true });
+}
+
+function resetGame() {
+  grid.clearAllCells();
+  grid.randomEmptyCell().tile = new Tile(gameBoard);
+  grid.randomEmptyCell().tile = new Tile(gameBoard);
+  setupInput();
 }
 
 async function handleInput(e) {
@@ -57,23 +70,21 @@ async function handleInput(e) {
 
   grid.cells.forEach((cell) => {
     cell.mergeTiles();
-    // if (cell.highestTileValue()) {
-    //   winCondition = true;
-    // }
+    if (cell.isTileValue2048()) {
+      newTile.waitForTransition(true).then(() => {
+        alert("You win!");
+        console.log("Will create a new 'HomeScreen' class eventually");
+      });
+    }
   });
 
   const newTile = new Tile(gameBoard);
   grid.randomEmptyCell().tile = newTile;
 
-  // if (winCondition) {
-  //   newTile.waitForTransition(true).then(() => {
-  //     alert("You Win!");
-  //   });
-  // }
-
   if (!canMoveUp() && !canMoveDown() && !canMoveLeft() && !canMoveRight()) {
     newTile.waitForTransition(true).then(() => {
       alert("You lose :(");
+      console.log("Will create a new 'HomeScreen' class eventually");
     });
     return;
   }
@@ -152,10 +163,3 @@ function canMove(cells) {
     });
   });
 }
-
-// function resetGame() {
-//   winCondition = false;
-//   grid.randomEmptyCell().tile = new Tile(gameBoard);
-//   grid.randomEmptyCell().tile = new Tile(gameBoard);
-//   setupInput();
-// }
