@@ -57,7 +57,11 @@ export default class Grid {
   }
 
   clearAllCells() {
-    console.log(this.#occupiedCells)
+    this.#occupiedCells.forEach((cell) => {
+      cell.tile.value = null;
+      cell.tile.remove();
+      cell.tile = null;
+    });
   }
 }
 
