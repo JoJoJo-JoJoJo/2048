@@ -1,17 +1,32 @@
 import Grid from "./Grid.js";
 import Tile from "./Tile.js";
+import HomeScreen from "./HomeScreen.js";
 
-//TODO: Add a home screen, which will eventually contain a 'homeScreen' class.
 //TODO: Add a few different options for themes (i.e. tile colours) on the home screen.
 //TODO: Add a scoring system, with a leader board for personal bests.
 
 const resetBtn = document.querySelector("[data-reset]");
+const playAgainBtn = document.querySelector("[data-play-again]");
+//! Make sure to add a play again button in the HomeScreen class, and add styles for it.
 const gameBoard = document.getElementById("game-board");
 
-const grid = new Grid(gameBoard);
-grid.randomEmptyCell().tile = new Tile(gameBoard);
-grid.randomEmptyCell().tile = new Tile(gameBoard);
+const themes = 6;
+//* This is for when I add different themes in.
 
+const grid = new Grid(gameBoard);
+const homeScreen = new HomeScreen(gameBoard, themes);
+
+homeScreenFunctions();
+//? Either a while loop or recursive function here to check for different functions of the
+//? home screen being used.
+
+playAgainBtn.addEventListener("click", (e) => {
+  e.stopPropagation;
+  playAgain();
+})
+
+grid.randomEmptyCell().tile = new Tile(gameBoard);
+grid.randomEmptyCell().tile = new Tile(gameBoard);
 setupInput();
 
 resetBtn.addEventListener("click", (e) => {
@@ -24,6 +39,16 @@ event listener attached to the window, otherwise the reset button would run twic
 
 function setupInput() {
   window.addEventListener("keydown", handleInput, { once: true });
+}
+
+function homeScreenFunctions() {
+  console.log("Working on a home screen currently");
+  homeScreen.showHomeScreen();
+}
+
+function playAgain() {
+  homeScreen.hideHomeScreen();
+  resetGame();
 }
 
 function resetGame() {
@@ -73,7 +98,7 @@ async function handleInput(e) {
     if (cell.isTileValue2048()) {
       newTile.waitForTransition(true).then(() => {
         alert("You win!");
-        console.log("Will create a new 'HomeScreen' class eventually");
+        homeScreenFunctions();
       });
     }
   });
@@ -84,7 +109,7 @@ async function handleInput(e) {
   if (!canMoveUp() && !canMoveDown() && !canMoveLeft() && !canMoveRight()) {
     newTile.waitForTransition(true).then(() => {
       alert("You lose :(");
-      console.log("Will create a new 'HomeScreen' class eventually");
+      homeScreenFunctions();
     });
     return;
   }

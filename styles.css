@@ -104,8 +104,8 @@ body {
   top: calc(var(--y) * (var(--cell-size) + var(--cell-gap)) + var(--cell-gap));
   left: calc(var(--x) * (var(--cell-size) + var(--cell-gap)) + var(--cell-gap));
   font-weight: bold;
-  background-color: hsl(200, 50%, var(--bg-lightness));
-  color: hsl(200, 25%, var(--txt-lightness));
+  background-color: hsl(var(--theme-color), 50%, var(--bg-lightness));
+  color: hsl(var(--theme-color), 25%, var(--txt-lightness));
   animation: show 200ms ease-in-out;
   transition: 100ms ease-in-out;
 }
