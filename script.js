@@ -6,15 +6,16 @@ import HomeScreen from "./HomeScreen.js";
 //TODO: Add a scoring system, with a leader board for personal bests.
 
 const resetBtn = document.querySelector("[data-reset]");
-const playAgainBtn = document.querySelector("[data-play-again]");
-//! Make sure to add a play again button in the HomeScreen class, and add styles for it.
 const gameBoard = document.getElementById("game-board");
 
 const themes = 6;
-//* This is for when I add different themes in.
+//* This variable is simply used to determine the hsl 'hue' value between the declared
+//* number of themes.
 
 const grid = new Grid(gameBoard);
 const homeScreen = new HomeScreen(gameBoard, themes);
+
+const playAgainBtn = document.querySelector("[data-play-again]");
 
 homeScreenFunctions();
 //? Either a while loop or recursive function here to check for different functions of the
