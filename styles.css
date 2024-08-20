@@ -17,7 +17,16 @@ body {
   height: 100vh;
   margin: 0;
   margin-left: 2rem;
+  margin-right: 2rem;
   padding: 1rem;
+}
+
+button {
+  all: unset;
+}
+
+button:focus {
+  outline: revert;
 }
 
 .navbar {

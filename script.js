@@ -17,12 +17,22 @@ const homeScreen = new HomeScreen(gameBoard, themes);
 
 const playAgainBtn = document.querySelector("[data-play-again]");
 
+function addGlobalEventListener(type, selector, callback, options) {
+  document.addEventListener(
+    type,
+    (e) => {
+      if (e.target.matches(selector)) callback(e);
+    },
+    options
+  );
+}
+
 homeScreenFunctions();
 
 playAgainBtn.addEventListener("click", (e) => {
   e.stopPropagation;
   playAgain();
-})
+});
 
 grid.randomEmptyCell().tile = new Tile(gameBoard);
 grid.randomEmptyCell().tile = new Tile(gameBoard);
@@ -55,6 +65,23 @@ function resetGame() {
 function homeScreenFunctions() {
   console.log("Working on a home screen currently");
   homeScreen.showHomeScreen();
+  homeScreen.themeButtons.forEach((_themeBtn, index) => {
+    addGlobalEventListener(
+      "click",
+      `theme-button-${index}`,
+      () => {
+        gameBoard.style.setProperty("--theme-color", (360 / themes) * index);
+      },
+      {
+        capture: true,
+      }
+    );
+  });
+  addGlobalEventListener("click", "[data-play-again]", () => {
+    playAgain();
+  }, {
+    capture: true,
+  });
 }
 
 async function handleInput(e) {
