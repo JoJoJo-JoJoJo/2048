@@ -2,7 +2,6 @@ import Grid from "./Grid.js";
 import Tile from "./Tile.js";
 import HomeScreen from "./HomeScreen.js";
 
-//TODO: Add a few different options for themes (i.e. tile colours) on the home screen.
 //TODO: Add a scoring system, with a leader board for personal bests.
 
 const resetBtn = document.querySelector("[data-reset]");
@@ -12,10 +11,10 @@ const themes = 6;
 //* This variable is simply used to determine the hsl 'hue' value between the declared
 //* number of themes.
 
+//TODO: Get theme buttons working.
+
 const grid = new Grid(gameBoard);
 const homeScreen = new HomeScreen(gameBoard, themes);
-
-const playAgainBtn = document.querySelector("[data-play-again]");
 
 function addGlobalEventListener(type, selector, callback, options) {
   document.addEventListener(
@@ -29,11 +28,6 @@ function addGlobalEventListener(type, selector, callback, options) {
 
 homeScreenFunctions();
 
-playAgainBtn.addEventListener("click", (e) => {
-  e.stopPropagation;
-  playAgain();
-});
-
 grid.randomEmptyCell().tile = new Tile(gameBoard);
 grid.randomEmptyCell().tile = new Tile(gameBoard);
 setupInput();
@@ -43,15 +37,12 @@ resetBtn.addEventListener("click", (e) => {
   resetGame();
 });
 
-/* I stopped immediate event propagation here because the handleInput function is run on an
-event listener attached to the window, otherwise the reset button would run twice on start. */
-
 function setupInput() {
   window.addEventListener("keydown", handleInput, { once: true });
 }
 
 function playAgain() {
-  homeScreen.hideHomeScreen();
+  closePopup();
   resetGame();
 }
 
@@ -63,25 +54,34 @@ function resetGame() {
 }
 
 function homeScreenFunctions() {
-  console.log("Working on a home screen currently");
-  homeScreen.showHomeScreen();
+  openPopup();
   homeScreen.themeButtons.forEach((_themeBtn, index) => {
     addGlobalEventListener(
       "click",
       `theme-button-${index}`,
       () => {
-        gameBoard.style.setProperty("--theme-color", (360 / themes) * index);
+        gameBoard.style.setProperty("--theme-color", (360 / themes) * index + 1);
+        homeScreen.style.setProperty("--theme-color", (360 / themes) * index + 1);
       },
       {
         capture: true,
       }
     );
   });
-  addGlobalEventListener("click", "[data-play-again]", () => {
+  addGlobalEventListener("click", "[data-play-again]", (e) => {
     playAgain();
   }, {
     capture: true,
+    once: true,
   });
+}
+
+function openPopup() {
+  homeScreen.theHomeScreen.classList.add("show-home-screen");
+}
+
+function closePopup() {
+  homeScreen.theHomeScreen.classList.remove("show-home-screen");
 }
 
 async function handleInput(e) {
@@ -124,6 +124,7 @@ async function handleInput(e) {
     if (cell.isTileValue2048()) {
       newTile.waitForTransition(true).then(() => {
         alert("You win!");
+        //TODO: Replace alerts with messages on the home screen.
         homeScreenFunctions();
       });
     }
@@ -135,6 +136,7 @@ async function handleInput(e) {
   if (!canMoveUp() && !canMoveDown() && !canMoveLeft() && !canMoveRight()) {
     newTile.waitForTransition(true).then(() => {
       alert("You lose :(");
+      //TODO: Replace alerts with messages on the home screen.
       homeScreenFunctions();
     });
     return;

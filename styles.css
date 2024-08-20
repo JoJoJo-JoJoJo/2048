@@ -20,25 +20,68 @@ body {
   margin-right: 2rem;
   padding: 1rem;
   z-index: -1;
+  position: relative;
 }
+
+/* .home-screen will be considered the popup */
 
 .home-screen {
-  height: 75%;
+  height: 50vh;
   width: 75%;
+  background-color: hsl(0, 0%, 67%);
+  border-radius: 10px;
+  border: 2px outset hsl(var(--theme-color), 100%, 50%);
   margin: 0;
   padding: 0;
-  z-index: 2;
-}
-
-[data-visible="hidden"] {
-  display: none;
-}
-
-p {
-  margin: 0;
-  padding: 10px 0 10px 0;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.1);
   text-align: center;
+  color: hsl(var(--theme-color), 100%, 20%);
+  visibility: hidden;
+  transition: transform 0.5s, top 0.5s;
+}
+
+.show-home-screen {
+  visibility: visible;
+  top: 50%;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.home-screen p {
+  font-size: 96px;
+  font-weight: 500;
+  margin: 0;
+  margin-top: 5vh;
+}
+
+.home-screen .theme-button {
+  background-color: hsl(var(--theme-button-bgc), 50%, 50%);
+  color: hsl(calc(mod(var(--theme-button-bgc) + 180, 360)), 50%, 50%);
+  width: 30%;
+  padding: 10px 0;
+  margin: 10px;
+  font-size: 18px;
+  border: 1px outset hsl(var(--theme-color), 100%, 20%);
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.home-screen .play-button {
+  width: 90%;
+  margin-top: 5vh;
+  padding: 15px 0;
+  background-color: hsl(var(--theme-color), 50%, 70%);
+  color: hsl(var(--theme-color), 100%, 20%);
   font-size: 48px;
+  border: 2px outset hsl(var(--theme-color), 100%, 50%);
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+#theme-button-2 {
+  margin-top: 5vh;
 }
 
 button {

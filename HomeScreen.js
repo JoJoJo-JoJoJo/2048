@@ -10,11 +10,10 @@ export default class HomeScreen {
     const documentBody = document.querySelector("body");
     this.#theHomeScreen = document.createElement("div");
     this.#theHomeScreen.classList.add("home-screen");
-    this.#theHomeScreen.dataset.visible = "showing";
+    this.#theHomeScreen.style.setProperty("--theme-color", 180);
     documentBody.append(this.#theHomeScreen);
     const title = document.createElement("p");
     title.innerText = 2048;
-    title.dataset.visible = "showing";
     this.#theHomeScreen.append(title);
     theGameBoard.style.setProperty("--theme-color", 180);
     this.#playAgainButton = new PlayAgainButton(this.#theHomeScreen);
@@ -25,36 +24,12 @@ export default class HomeScreen {
     );
   }
 
-  get isActive() {
-    return this.#isActive;
-  }
-
   get theHomeScreen() {
     return this.#theHomeScreen;
   }
 
   get themeButtons() {
     return this.#themeButtons;
-  }
-
-  get playAgainButton() {
-    return this.#playAgainButton;
-  }
-
-  getHomeScreenChildren() {
-    return [title, ...this.#themeButtons, this.#playAgainButton];
-  }
-
-  showHomeScreen() {
-    // This will just make the home screen appear and function. Will also activate animations.
-    this.#isActive = true;
-    
-  }
-
-  hideHomeScreen() {
-    // This will stop the home screen from functioning, and make it disappear.
-    this.#isActive = false;
-    
   }
 }
 
@@ -66,7 +41,6 @@ function createThemeButtons(_HOME_SCREEN) {
     themeButton.classList.add("theme-button");
     themeButton.classList.add("button");
     themeButton.setAttribute("type", "button");
-    themeButton.dataset.visible = "showing";
     _THEME_BUTTONS.push(themeButton);
     _HOME_SCREEN.append(themeButton);
     x++;
@@ -80,8 +54,8 @@ class PlayAgainButton {
     playButton.classList.add("button");
     playButton.classList.add("play-button");
     playButton.setAttribute("type", "button");
-    playButton.dataset.visible = "showing";
     playButton.dataset.playAgain = "";
+    playButton.innerText = "PLAY";
     homeScreenDiv.append(playButton);
   }
 }
@@ -94,6 +68,7 @@ class ThemeBtn {
     this.#themeButtonIndex = index;
     this.themeBtnElement = themeBtnElement;
     themeBtnElement.setAttribute("id", `theme-button-${index + 1}`);
+    themeBtnElement.innerText = `Theme ${index + 1}`;
     themeBtnElement.style.setProperty(
       "--theme-button-bgc",
       (360 / themes) * index
