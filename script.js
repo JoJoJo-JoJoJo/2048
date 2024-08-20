@@ -18,8 +18,6 @@ const homeScreen = new HomeScreen(gameBoard, themes);
 const playAgainBtn = document.querySelector("[data-play-again]");
 
 homeScreenFunctions();
-//? Either a while loop or recursive function here to check for different functions of the
-//? home screen being used.
 
 playAgainBtn.addEventListener("click", (e) => {
   e.stopPropagation;
@@ -42,11 +40,6 @@ function setupInput() {
   window.addEventListener("keydown", handleInput, { once: true });
 }
 
-function homeScreenFunctions() {
-  console.log("Working on a home screen currently");
-  homeScreen.showHomeScreen();
-}
-
 function playAgain() {
   homeScreen.hideHomeScreen();
   resetGame();
@@ -57,6 +50,11 @@ function resetGame() {
   grid.randomEmptyCell().tile = new Tile(gameBoard);
   grid.randomEmptyCell().tile = new Tile(gameBoard);
   setupInput();
+}
+
+function homeScreenFunctions() {
+  console.log("Working on a home screen currently");
+  homeScreen.showHomeScreen();
 }
 
 async function handleInput(e) {
