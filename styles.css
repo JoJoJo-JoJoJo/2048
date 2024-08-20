@@ -19,6 +19,26 @@ body {
   margin-left: 2rem;
   margin-right: 2rem;
   padding: 1rem;
+  z-index: -1;
+}
+
+.home-screen {
+  height: 75%;
+  width: 75%;
+  margin: 0;
+  padding: 0;
+  z-index: 2;
+}
+
+[data-visible="hidden"] {
+  display: none;
+}
+
+p {
+  margin: 0;
+  padding: 10px 0 10px 0;
+  text-align: center;
+  font-size: 48px;
 }
 
 button {
@@ -36,8 +56,8 @@ button:focus {
   background-color: hsl(0, 0%, 30%);
   top: 0;
   left: 0;
-  z-index: 1;
   transition: width 200ms ease;
+  z-index: 1;
   border-right: 2px inset hsl(0, 0%, 67%);
   border-bottom: 2px inset hsl(0, 0%, 67%);
   border-bottom-right-radius: 5px;

@@ -7,10 +7,15 @@ export default class HomeScreen {
   constructor(theGameBoard, themes) {
     this.themes = themes;
     this.#isActive = true;
+    const documentBody = document.querySelector("body");
     this.#theHomeScreen = document.createElement("div");
     this.#theHomeScreen.classList.add("home-screen");
-    const documentBody = document.querySelector("body");
+    this.#theHomeScreen.dataset.visible = "showing";
     documentBody.append(this.#theHomeScreen);
+    const title = document.createElement("p");
+    title.innerText = 2048;
+    title.dataset.visible = "showing";
+    this.#theHomeScreen.append(title);
     theGameBoard.style.setProperty("--theme-color", 180);
     this.#playAgainButton = new PlayAgainButton(this.#theHomeScreen);
     this.#themeButtons = createThemeButtons(this.#theHomeScreen).map(
@@ -36,16 +41,20 @@ export default class HomeScreen {
     return this.#playAgainButton;
   }
 
+  getHomeScreenChildren() {
+    return [title, ...this.#themeButtons, this.#playAgainButton];
+  }
+
   showHomeScreen() {
     // This will just make the home screen appear and function. Will also activate animations.
     this.#isActive = true;
-    this.#theHomeScreen.style.display = "block";
+    
   }
 
   hideHomeScreen() {
     // This will stop the home screen from functioning, and make it disappear.
     this.#isActive = false;
-    this.#theHomeScreen.style.display = "none";
+    
   }
 }
 
@@ -57,6 +66,7 @@ function createThemeButtons(_HOME_SCREEN) {
     themeButton.classList.add("theme-button");
     themeButton.classList.add("button");
     themeButton.setAttribute("type", "button");
+    themeButton.dataset.visible = "showing";
     _THEME_BUTTONS.push(themeButton);
     _HOME_SCREEN.append(themeButton);
     x++;
@@ -70,6 +80,7 @@ class PlayAgainButton {
     playButton.classList.add("button");
     playButton.classList.add("play-button");
     playButton.setAttribute("type", "button");
+    playButton.dataset.visible = "showing";
     playButton.dataset.playAgain = "";
     homeScreenDiv.append(playButton);
   }
