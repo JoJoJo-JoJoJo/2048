@@ -8,8 +8,7 @@ const resetBtn = document.querySelector("[data-reset]");
 const gameBoard = document.getElementById("game-board");
 
 const themes = 6;
-//* This variable is simply used to determine the hsl 'hue' value between the declared
-//* number of themes.
+//* This variable is used to determine the hsl 'hue' value between the declared number of themes.
 
 //TODO: Get theme buttons working.
 
@@ -55,34 +54,25 @@ function resetGame() {
 
 function homeScreenFunctions() {
   openPopup();
-  homeScreen.themeButtons.forEach((_themeBtn, index) => {
+
+  homeScreen.themeButtons.forEach((themeBtn, index) => {
     addGlobalEventListener(
       "click",
-      `theme-button-${index + 1}`,
-      () => {
-        gameBoard.style.setProperty(
-          "--theme-color",
-          (360 / themes) * index + 1
-        );
-        homeScreen.theHomeScreen.style.setProperty(
-          "--theme-color",
-          (360 / themes) * index + 1
-        );
-      },
-      {
-        capture: true,
+      `#theme-button-${index + 1}`,
+      (e) => {
+        themeBtn.changeTheme();
       }
     );
   });
+
   addGlobalEventListener(
     "click",
     "[data-play-again]",
-    () => {
+    (e) => {
       playAgain();
     },
     {
       capture: true,
-      once: true,
     }
   );
 }
