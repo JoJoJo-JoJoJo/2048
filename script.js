@@ -10,8 +10,6 @@ const gameBoard = document.getElementById("game-board");
 const themes = 6;
 //* This variable is used to determine the hsl 'hue' value between the declared number of themes.
 
-//TODO: Get theme buttons working.
-
 const grid = new Grid(gameBoard);
 const homeScreen = new HomeScreen(gameBoard, themes);
 
@@ -129,6 +127,7 @@ async function handleInput(e) {
     if (cell.isTileValue2048()) {
       newTile.waitForTransition(true).then(() => {
         homeScreen.changeHomeScreenText("YOU WIN!");
+        homeScreen.playAgainButton.playAgainText();
         homeScreenFunctions();
       });
     }
@@ -140,6 +139,7 @@ async function handleInput(e) {
   if (!canMoveUp() && !canMoveDown() && !canMoveLeft() && !canMoveRight()) {
     newTile.waitForTransition(true).then(() => {
       homeScreen.changeHomeScreenText("YOU LOSE...");
+      homeScreen.playAgainButton.playAgainText();
       homeScreenFunctions();
     });
     return;

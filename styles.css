@@ -24,8 +24,6 @@ body {
   position: relative;
 }
 
-/* .home-screen will be considered the popup */
-
 .home-screen {
   height: 50vh;
   width: 75%;
@@ -98,7 +96,7 @@ body {
   color: hsl(var(--theme-color), 100%, 22%);
 }
 
-#theme-button-2 {
+#theme-button-1, #theme-button-2, #theme-button-3 {
   margin-top: 5vh;
 }
 

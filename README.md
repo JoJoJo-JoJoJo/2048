@@ -12,3 +12,5 @@ This project is one of my first times working properly with OOP, including thing
 I am also aware that React would make this project a lot easier to write and read for both creator and user, but I wanted to show that I could use an OOP focus when creating projects.
 Perhaps at some point in the future I might recreate this with React, but for now it will stay
 written in JavaScript.
+
+The home screen is not fully responsive, but should only be misaligned when opening any browser/developer tools.

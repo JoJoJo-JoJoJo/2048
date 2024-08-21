@@ -8,17 +8,23 @@ export default class HomeScreen {
     const documentBody = document.querySelector("body");
     this.#theHomeScreen = document.createElement("div");
     this.#theHomeScreen.classList.add("home-screen");
-    this.#theHomeScreen.style.setProperty("--theme-color", 120);
+    this.#theHomeScreen.style.setProperty("--theme-color", 180);
     documentBody.append(this.#theHomeScreen);
     const title = document.createElement("p");
     title.innerText = 2048;
     this.title = title;
     this.#theHomeScreen.append(title);
-    theGameBoard.style.setProperty("--theme-color", 120);
+    theGameBoard.style.setProperty("--theme-color", 180);
     this.#playAgainButton = new PlayAgainButton(this.#theHomeScreen);
     this.#themeButtons = createThemeButtons(this.#theHomeScreen).map(
       (themeBtnElement, index) => {
-        return new ThemeBtn(theGameBoard, themeBtnElement, index, themes, this.#theHomeScreen);
+        return new ThemeBtn(
+          theGameBoard,
+          themeBtnElement,
+          index,
+          themes,
+          this.#theHomeScreen
+        );
       }
     );
   }
@@ -29,6 +35,10 @@ export default class HomeScreen {
 
   get themeButtons() {
     return this.#themeButtons;
+  }
+
+  get playAgainButton() {
+    return this.#playAgainButton;
   }
 
   get theme() {
@@ -60,13 +70,19 @@ function createThemeButtons(_HOME_SCREEN) {
 }
 
 class PlayAgainButton {
+  #playButton
+
   constructor(homeScreenDiv) {
-    const playButton = document.createElement("button");
-    playButton.classList.add("button", "play-button");
-    playButton.setAttribute("type", "button");
-    playButton.dataset.playAgain = "";
-    playButton.innerText = "PLAY";
-    homeScreenDiv.append(playButton);
+    this.#playButton = document.createElement("button");
+    this.#playButton.classList.add("button", "play-button");
+    this.#playButton.setAttribute("type", "button");
+    this.#playButton.dataset.playAgain = "";
+    this.#playButton.innerText = "PLAY";
+    homeScreenDiv.append(this.#playButton);
+  }
+
+  playAgainText() {
+    this.#playButton.innerText = "PLAY AGAIN?";
   }
 }
 
