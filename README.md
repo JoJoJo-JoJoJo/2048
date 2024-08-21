@@ -4,8 +4,7 @@ This project is licensed under the terms of the GNU v3.0 license.
 
 Credit to Web-Dev Simplified for the foundation of this game.
 
-This is 2048 (or at least a version of it), using an OOP focus. I am hoping to develop this project over time into a game with multiple different 'difficulties', or takes, on the original game, aswell as adding a reset button so that people can choose to play again without refreshing any local data. For example, I plan to add a (basic) personal bests leaderboard at some point, which will hold the data in local storage and then appear upon either resetting or starting/ending the game.
-
+This is 2048 (or at least a version of it), using an OOP focus. There is a reset button/navbar which will reset the game without returning to the home screen. The home screen appears upon first loading the game with the title (2048) and "PLAY" text appearing, aswell as a selection of themes which change the colours of the tiles and home screen. Upon winning/losing the game, the home screen falls down from the top of the window into the centre of the screen, with the title being replaced by the text "YOU WIN!" or "YOU LOSE..." respectively. The text in the play button then also changes from "PLAY" to "PLAY AGAIN" (regardless of win/loss).
 
 This project is one of my first times working properly with OOP, including things like private variables, getters and setters. Therefore, if some of the comments within the code seem very obvious, or the code is inefficient in places, it is more for me as a learning process.
 
