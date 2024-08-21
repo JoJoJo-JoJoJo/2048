@@ -22,6 +22,7 @@ export default class HomeScreen {
         return new ThemeBtn(theGameBoard, themeBtnElement, index, themes);
       }
     );
+    this.title = title;
   }
 
   get theHomeScreen() {
@@ -30,6 +31,10 @@ export default class HomeScreen {
 
   get themeButtons() {
     return this.#themeButtons;
+  }
+
+  changeHomeScreenText(winLoseMsg) {
+    this.title.innerText = winLoseMsg;
   }
 }
 

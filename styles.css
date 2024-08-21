@@ -28,17 +28,17 @@ body {
 .home-screen {
   height: 50vh;
   width: 75%;
-  background-color: hsl(0, 0%, 67%);
+  background-color: hsl(0, 0%, 80%);
   border-radius: 10px;
-  border: 2px outset hsl(var(--theme-color), 100%, 50%);
   margin: 0;
+  box-shadow: 0 4px 8px 0 hsl(var(--theme-color), 50%, 50%, 0.8);
   padding: 0;
   position: absolute;
   top: 0;
   left: 50%;
   transform: translate(-50%, -50%) scale(0.1);
   text-align: center;
-  color: hsl(var(--theme-color), 100%, 20%);
+  color: hsl(var(--theme-color), 100%, 10%);
   visibility: hidden;
   transition: transform 0.5s, top 0.5s;
 }
@@ -50,10 +50,13 @@ body {
 }
 
 .home-screen p {
-  font-size: 96px;
+  font-size: 108px;
   font-weight: 500;
   margin: 0;
   margin-top: 5vh;
+  text-shadow: 1px 1px 2px hsl(var(--theme-color), 10%, 20%),
+    0 0 25px hsl(var(--theme-color), 50%, 40%),
+    0 0 5px hsl(var(--theme-color), 50%, 60%);
 }
 
 .home-screen .theme-button {
@@ -63,9 +66,14 @@ body {
   padding: 10px 0;
   margin: 10px;
   font-size: 18px;
-  border: 1px outset hsl(var(--theme-color), 100%, 20%);
+  box-shadow: 0 4px 8px 0 hsl(var(--theme-button-bgc), 20%, 20%, 0.2);
   border-radius: 5px;
   cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.home-screen .theme-button:hover {
+  background-color: hsl(var(--theme-button-bgc), 70%, 50%);
 }
 
 .home-screen .play-button {
@@ -73,11 +81,20 @@ body {
   margin-top: 5vh;
   padding: 15px 0;
   background-color: hsl(var(--theme-color), 50%, 70%);
-  color: hsl(var(--theme-color), 100%, 20%);
+  color: hsl(var(--theme-color), 100%, 10%);
   font-size: 48px;
-  border: 2px outset hsl(var(--theme-color), 100%, 50%);
+  text-shadow: 1px 1px 2px hsl(var(--theme-color), 10%, 20%),
+    0 0 25px hsl(var(--theme-color), 50%, 40%),
+    0 0 5px hsl(var(--theme-color), 50%, 60%);
+  box-shadow: 0 4px 8px 0 hsl(0, 0%, 0%, 0.2);
   border-radius: 10px;
   cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.home-screen .play-button:hover {
+  background-color: hsl(var(--theme-color), 40%, 70%);
+  color: hsl(var(--theme-color), 100%, 22%);
 }
 
 #theme-button-2 {
@@ -107,6 +124,18 @@ button:focus {
   display: flex;
   justify-content: center;
   align-items: center;
+  visibility: visible;
+  opacity: 1;
+  transition: opacity 0.5s, width 0.3s;
+}
+
+.hide-navbar {
+  visibility: hidden;
+  opacity: 0;
+}
+
+.navbar:hover {
+  width: 15rem;
 }
 
 .navbar-nav {
@@ -133,11 +162,14 @@ button:focus {
 .link-text {
   display: none;
   font-size: 2rem;
-  transition: display 200ms ease;
+  visibility: visible;
+  opacity: 1;
+  transition: display 200ms ease, opacity 300ms;
 }
 
-.navbar:hover {
-  width: 15rem;
+.hide-link-text {
+  visibility: hidden;
+  opacity: 0;
 }
 
 .navbar:hover .link-text {

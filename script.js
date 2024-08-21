@@ -58,30 +58,45 @@ function homeScreenFunctions() {
   homeScreen.themeButtons.forEach((_themeBtn, index) => {
     addGlobalEventListener(
       "click",
-      `theme-button-${index}`,
+      `theme-button-${index + 1}`,
       () => {
-        gameBoard.style.setProperty("--theme-color", (360 / themes) * index + 1);
-        homeScreen.style.setProperty("--theme-color", (360 / themes) * index + 1);
+        gameBoard.style.setProperty(
+          "--theme-color",
+          (360 / themes) * index + 1
+        );
+        homeScreen.theHomeScreen.style.setProperty(
+          "--theme-color",
+          (360 / themes) * index + 1
+        );
       },
       {
         capture: true,
       }
     );
   });
-  addGlobalEventListener("click", "[data-play-again]", (e) => {
-    playAgain();
-  }, {
-    capture: true,
-    once: true,
-  });
+  addGlobalEventListener(
+    "click",
+    "[data-play-again]",
+    () => {
+      playAgain();
+    },
+    {
+      capture: true,
+      once: true,
+    }
+  );
 }
 
 function openPopup() {
   homeScreen.theHomeScreen.classList.add("show-home-screen");
+  resetBtn.classList.add("hide-navbar");
+  resetBtn.querySelector(".link-text").classList.add("hide-link-text");
 }
 
 function closePopup() {
   homeScreen.theHomeScreen.classList.remove("show-home-screen");
+  resetBtn.classList.remove("hide-navbar");
+  resetBtn.querySelector(".link-text").classList.remove("hide-link-text");
 }
 
 async function handleInput(e) {
@@ -123,8 +138,7 @@ async function handleInput(e) {
     cell.mergeTiles();
     if (cell.isTileValue2048()) {
       newTile.waitForTransition(true).then(() => {
-        alert("You win!");
-        //TODO: Replace alerts with messages on the home screen.
+        homeScreen.changeHomeScreenText("YOU WIN!");
         homeScreenFunctions();
       });
     }
@@ -135,8 +149,7 @@ async function handleInput(e) {
 
   if (!canMoveUp() && !canMoveDown() && !canMoveLeft() && !canMoveRight()) {
     newTile.waitForTransition(true).then(() => {
-      alert("You lose :(");
-      //TODO: Replace alerts with messages on the home screen.
+      homeScreen.changeHomeScreenText("YOU LOSE...");
       homeScreenFunctions();
     });
     return;
