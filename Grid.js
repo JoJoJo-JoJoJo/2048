@@ -23,8 +23,6 @@ export default class Grid {
     return this.#cells;
   }
 
-  // All this is saying is that you can now read the content of the cells variable (private) from outside of the class.
-
   get cellsByRow() {
     return this.#cells.reduce((cellGrid, cell) => {
       cellGrid[cell.y] = cellGrid[cell.y] || [];
@@ -48,8 +46,6 @@ export default class Grid {
   get #occupiedCells() {
     return this.#cells.filter((cell) => cell.tile != null);
   }
-
-  // PRIVATE read-only function that returns all cells that don't currently contain a value on the gameBoard i.e. spaces without a tile on them.
 
   randomEmptyCell() {
     const randomIndex = Math.floor(Math.random() * this.#emptyCells.length);
@@ -120,7 +116,7 @@ class Cell {
     this.tile.value = this.tile.value + this.mergeTile.value;
     this.mergeTile.remove();
     this.mergeTile = null;
-  } // Merges the two tiles, doubles the value of 'this.tile', and removes 'this.mergeTile'
+  } // Merges the two tiles, doubles the value of 'this.tile', and removes 'this.mergeTile'.
 
   isTileValue2048() {
     if (this.tile != null && this.mergeTile != null)

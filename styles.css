@@ -6,18 +6,106 @@
 
 :root {
   font-family: Arial, Helvetica, sans-serif;
-  font-size: 16px;
+  font-size: 1.5vmin;
 }
 
 body {
   background-color: hsl(0, 0%, 20%);
+  user-select: none;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
   margin: 0;
   margin-left: 2rem;
+  margin-right: 2rem;
   padding: 1rem;
+  z-index: -1;
+  position: relative;
+}
+
+.home-screen {
+  height: 50vh;
+  width: 75%;
+  background-color: hsl(0, 20%, 90%);
+  border-radius: 10px;
+  margin: 0;
+  box-shadow: 0 2px 4px 0 hsl(var(--theme-color), 50%, 50%, 0.8);
+  padding: 0;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.1);
+  text-align: center;
+  color: hsl(var(--theme-color), 100%, 10%);
+  visibility: hidden;
+  transition: transform 0.5s, top 0.5s;
+}
+
+.show-home-screen {
+  visibility: visible;
+  top: 50%;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.home-screen p {
+  font-size: 6em;
+  font-weight: 500;
+  margin: 0;
+  margin-top: 5vh;
+  text-shadow: 1px 1px 2px hsl(var(--theme-color), 10%, 20%),
+    0 0 25px hsl(var(--theme-color), 50%, 40%),
+    0 0 5px hsl(var(--theme-color), 50%, 60%);
+}
+
+.home-screen .theme-button {
+  background-color: hsl(var(--theme-button-bgc), 50%, 50%);
+  color: hsl(calc(mod(var(--theme-button-bgc) + 180, 360)), 50%, 50%);
+  width: 30%;
+  padding: 10px 0;
+  margin: 10px;
+  font-size: 1.5em;
+  box-shadow: 0 4px 8px 0 hsl(var(--theme-button-bgc), 20%, 20%, 0.2);
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.home-screen .theme-button:hover {
+  background-color: hsl(var(--theme-button-bgc), 70%, 50%);
+}
+
+.home-screen .play-button {
+  width: 90%;
+  margin-top: 5vh;
+  padding: 15px 0;
+  background-color: hsl(var(--theme-color), 50%, 70%);
+  color: hsl(var(--theme-color), 100%, 10%);
+  font-size: 4em;
+  text-shadow: 1px 1px 2px hsl(var(--theme-color), 10%, 20%),
+    0 0 25px hsl(var(--theme-color), 50%, 40%),
+    0 0 5px hsl(var(--theme-color), 50%, 60%);
+  box-shadow: 0 4px 8px 0 hsl(0, 0%, 0%, 0.2);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.home-screen .play-button:hover {
+  background-color: hsl(var(--theme-color), 40%, 70%);
+  color: hsl(var(--theme-color), 100%, 22%);
+}
+
+#theme-button-1, #theme-button-2, #theme-button-3 {
+  margin-top: 5vh;
+}
+
+button {
+  all: unset;
+}
+
+button:focus {
+  outline: revert;
 }
 
 .navbar {
@@ -27,14 +115,26 @@ body {
   background-color: hsl(0, 0%, 30%);
   top: 0;
   left: 0;
-  z-index: 1;
   transition: width 200ms ease;
+  z-index: 1;
   border-right: 2px inset hsl(0, 0%, 67%);
   border-bottom: 2px inset hsl(0, 0%, 67%);
   border-bottom-right-radius: 5px;
   display: flex;
   justify-content: center;
   align-items: center;
+  visibility: visible;
+  opacity: 1;
+  transition: opacity 0.5s, width 0.3s;
+}
+
+.hide-navbar {
+  visibility: hidden;
+  opacity: 0;
+}
+
+.navbar:hover {
+  width: 15rem;
 }
 
 .navbar-nav {
@@ -61,11 +161,14 @@ body {
 .link-text {
   display: none;
   font-size: 2rem;
-  transition: display 200ms ease;
+  visibility: visible;
+  opacity: 1;
+  transition: display 200ms ease, opacity 300ms;
 }
 
-.navbar:hover {
-  width: 15rem;
+.hide-link-text {
+  visibility: hidden;
+  opacity: 0;
 }
 
 .navbar:hover .link-text {
@@ -104,8 +207,8 @@ body {
   top: calc(var(--y) * (var(--cell-size) + var(--cell-gap)) + var(--cell-gap));
   left: calc(var(--x) * (var(--cell-size) + var(--cell-gap)) + var(--cell-gap));
   font-weight: bold;
-  background-color: hsl(200, 50%, var(--bg-lightness));
-  color: hsl(200, 25%, var(--txt-lightness));
+  background-color: hsl(var(--theme-color), 50%, var(--bg-lightness));
+  color: hsl(var(--theme-color), 25%, var(--txt-lightness));
   animation: show 200ms ease-in-out;
   transition: 100ms ease-in-out;
 }
